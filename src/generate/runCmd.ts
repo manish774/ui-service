@@ -1,25 +1,31 @@
-import { generateTypes } from "./types/Types";
+import { generateEndpoints } from "./types/generateEndpoints";
+import { generateMetadataProps } from "./types/TypesModel";
 
-const aa = {
-  serviceName: "tickets",
+const aa: generateMetadataProps = {
+  serviceName: "ticketsNew",
   model: [
     {
-      url: "https://facebook.com",
+      method: "POST",
+      url: "https://api.github.com/users",
       requestObject: [
         { name: "name", dataType: "string" },
         { name: "userId", dataType: "string" },
         { name: "userAge", dataType: "number" },
       ],
-      fileName: "userService.ts",
       apiName: "fetchUsers",
     },
     {
-      url: "https://facebook.com/user",
+      url: "https://api.github.com/users/user",
       requestObject: [{ name: "name", dataType: "string" }],
-      fileName: "userService.ts",
       apiName: "fetchUsersNew",
+      method: "POST",
+    },
+    {
+      url: "https://api.github.com/users",
+      apiName: "getUsers",
+      method: "GET",
     },
   ],
 };
 
-generateTypes.post(aa);
+generateEndpoints(aa);

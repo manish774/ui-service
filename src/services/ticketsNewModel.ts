@@ -7,3 +7,5 @@ export interface fetchUsersProps {
 export interface fetchUsersNewProps {
   name: string;
 }
+
+export interface getUsersProps {}
