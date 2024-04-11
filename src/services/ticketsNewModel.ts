@@ -14,3 +14,8 @@ export interface getUsersProps {
 export interface getUsersNewProps {
   id: string;
 }
+
+export interface fetchAllUserProps {
+  name: string;
+  userId: string;
+}

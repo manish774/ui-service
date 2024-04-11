@@ -12,7 +12,7 @@ export const generateEndpoints = (props: generateMetadataProps) => {
     if (metadata.method === "POST") {
       const { modelCode, interfaceCode, importStatement } = Type.postMethod(
         metadata,
-        props?.serviceName
+        props?.serviceName,
       );
       completeCodeString += modelCode;
       interfaceString += interfaceCode;
@@ -21,7 +21,7 @@ export const generateEndpoints = (props: generateMetadataProps) => {
     if (metadata.method === "GET") {
       const { modelCode, interfaceCode, importStatement } = Type.getMethod(
         metadata,
-        props?.serviceName
+        props?.serviceName,
       );
       completeCodeString += modelCode;
       interfaceString += interfaceCode;
