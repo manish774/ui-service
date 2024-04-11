@@ -23,9 +23,13 @@ jobs:
           npm install
           npm run build
 
+      - name: Install ts-node
+        run: npm install -g ts-node
+
       - name: Run command and commit changes
         run: |
           if [[ $(git log -1 --pretty=%B) =~ "build" ]]; then
+            ts-node ./src/generate/runCmd.ts
             git add .
             git commit -m "Auto-generated files"
             git push
