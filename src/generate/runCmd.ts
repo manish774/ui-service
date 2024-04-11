@@ -6,17 +6,16 @@ const aa: generateMetadataProps = {
   model: [
     {
       method: "POST",
-      url: "https://api.github.com/users",
-      requestObject: [
+      url: "https://api.github.com/users/{name}/${userId}",
+      requestOrQuery: [
         { name: "name", dataType: "string" },
         { name: "userId", dataType: "string" },
-        { name: "userAge", dataType: "number" },
       ],
       apiName: "fetchUsers",
     },
     {
       url: "https://api.github.com/users/user",
-      requestObject: [{ name: "name", dataType: "string" }],
+      requestOrQuery: [{ name: "name", dataType: "string" }],
       apiName: "fetchUsersNew",
       method: "POST",
     },
@@ -24,6 +23,13 @@ const aa: generateMetadataProps = {
       url: "https://api.github.com/users",
       apiName: "getUsers",
       method: "GET",
+      requestOrQuery: [{}],
+    },
+    {
+      url: "https://api.github.com/user/{id}",
+      apiName: "getUsersNew",
+      method: "GET",
+      requestOrQuery: [{ name: "id", dataType: "string" }],
     },
   ],
 };

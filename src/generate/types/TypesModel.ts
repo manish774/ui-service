@@ -1,9 +1,9 @@
 export interface mPostProps {
   url: string;
-  requestObject?: any[];
+  requestOrQuery: any[];
   apiName: string;
   method: "GET" | "POST";
-  params?: any;
+  params?: any[];
 }
 
 export interface generateMetadataProps {

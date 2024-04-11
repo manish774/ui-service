@@ -8,16 +8,14 @@ interface props {
 }
 
 export const generate = (props: props) => {
-  console.log("p");
   fs.writeFile(props.fileName, props?.code, { flag: "w" }, (err) => {
     if (err) {
-      console.log("first");
+      console.log(err);
     }
   });
 };
 
 export const runFormatter = () => {
-  console.log("first");
   const npmCommand = "npm run format";
 
   exec(npmCommand, (error: any, stdout: any, stderr: any) => {

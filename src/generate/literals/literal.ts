@@ -4,12 +4,12 @@ interface literalPostProps {
 }
 interface literalInterfaceProps {
   apiName: string;
-  requestObject: any;
+  requestOrQuery: any;
 }
 export const literalPost = ({ apiName, url }: literalPostProps) => {
   return `\n\n
     export const  ${apiName} = async (props:${apiName}Props) =>{
-           const fetchData = await fetch('${url}',{
+           const fetchData = await fetch(\`${createTemplateLiteralForUrl(url)}\`,{
                 method:'POST',
                 body: JSON.stringify(props)
             })
@@ -28,12 +28,12 @@ const createInterface = (requestObject: any) => {
 
 export const literalForInterface = ({
   apiName,
-  requestObject,
+  requestOrQuery,
 }: literalInterfaceProps): string => {
   let interfaceLiterals = "";
 
   interfaceLiterals += `\n\n export interface ${apiName}Props {
-    ${createInterface(requestObject)}
+    ${createInterface(requestOrQuery)}
   }`;
 
   return interfaceLiterals;
@@ -42,8 +42,27 @@ export const literalForInterface = ({
 export const literalGet = ({ apiName, url }: literalPostProps) => {
   return `\n\n
     export const  ${apiName} = async (props:${apiName}Props) =>{
-           const fetchData = await fetch('${url}')
+           const fetchData = await fetch(\`${createTemplateLiteralForUrl(url)}\`)
           const data = await fetchData.json()
           return data;
 }`;
+};
+
+const createTemplateLiteralForUrl = (templateString: string): string => {
+  const regex: RegExp = /\{([^}]+)\}/g;
+  const placeholders: RegExpMatchArray | null = templateString.match(regex);
+  const props: { [key: string]: string } = {};
+  if (placeholders) {
+    placeholders.forEach((placeholder: string) => {
+      const key: string = placeholder.substring(1, placeholder.length - 1);
+      props[key] = `\${props?.${key}}`;
+    });
+  }
+  const modifiedString: string = templateString.replace(
+    regex,
+    (match: string, placeholder: string) => {
+      return props[placeholder] || match;
+    },
+  );
+  return modifiedString;
 };

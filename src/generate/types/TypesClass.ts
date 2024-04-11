@@ -7,7 +7,7 @@ import { mPostProps } from "./TypesModel";
 
 interface MethodReturnType {
   modelCode: string;
-  interfaceCode: string;
+  interfaceCode?: string;
   importStatement: string;
 }
 
@@ -15,22 +15,31 @@ class Types {
   constructor() {}
 
   getMethod(props: mPostProps, fileName: string) {
-    const { url, requestObject, apiName } = props;
+    const { url, requestOrQuery, apiName } = props;
     let importStatement = `import {${apiName}Props} from './${fileName}Model';`;
-    let interfaces = literalForInterface({ apiName, requestObject });
+    let interfaces = literalForInterface({ apiName, requestOrQuery });
     let code = literalGet({ apiName, url });
-
-    return {
+    const completeLiteral: MethodReturnType = {
       modelCode: code,
-      interfaceCode: interfaces,
       importStatement,
     };
+
+    if (requestOrQuery?.length) {
+      completeLiteral.interfaceCode = interfaces;
+    }
+
+    return completeLiteral;
   }
 
   postMethod(props: mPostProps, fileName: string): MethodReturnType {
-    const { url, requestObject, apiName } = props;
+    const { url, requestOrQuery, apiName, params } = props;
     let importStatement = `import {${apiName}Props} from './${fileName}Model';`;
-    let interfaces = literalForInterface({ apiName, requestObject });
+    const mergeQuery = [...(requestOrQuery || []), ...(params || [])];
+
+    let interfaces = literalForInterface({
+      apiName,
+      requestOrQuery: mergeQuery,
+    });
     let code = literalPost({ apiName, url });
 
     return {
