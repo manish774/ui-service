@@ -27,8 +27,11 @@ jobs:
       - name: Run command and commit changes
         run: |
           if [[ $(git log -1 --pretty=%B) =~ "build" ]]; then
-            ./node_modules/.bin/ts-node ./src/generate/runCmd.ts
+            ts-node ./src/generate/runCmd.ts
+            git status
             git add .
+            git status
             git commit -m "Auto-generated files"
+            git status
             git push
           fi
