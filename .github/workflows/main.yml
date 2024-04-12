@@ -1,37 +1,32 @@
-name: Run Command on Commit
+name: Git Workflow
 
 on:
   push:
     branches:
-      - main # Change this to your main branch name
+      - main
 
 jobs:
-  run_command:
+  git-commands:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14"
+      - name: Run git status
+        run: git status
 
-      - name: Install dependencies
-        run: npm install
+      - name: Add changes
+        run: git add .
 
-      - name: Build project
-        run: npm run build
+      - name: Run git status again
+        run: git status
 
-      - name: Run command and commit changes
-        run: |
-          if [[ $(git log -1 --pretty=%B) =~ "build" ]]; then
-            ts-node ./src/generate/runCmd.ts
-            git status
-            git add .
-            git status
-            git commit -m "Auto-generated files"
-            git status
-            git push
-          fi
+      - name: Commit changes
+        run: git commit -m "Auto-generated files"
+
+      - name: Run git status after commit
+        run: git status
+
+      - name: Push changes
+        run: git push
