@@ -26,15 +26,6 @@ const aa: generateMetadataProps = {
         { name: "name", dataType: "string" },
         { name: "userId", dataType: "string" },
       ],
-      apiName: "fetchUsers2",
-    },
-    {
-      method: "POST",
-      url: "https://api.github.com/users/{name}/${userId}",
-      requestOrQuery: [
-        { name: "name", dataType: "string" },
-        { name: "userId", dataType: "string" },
-      ],
       apiName: "fetchUsers1",
     },
     {
