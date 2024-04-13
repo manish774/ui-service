@@ -8,7 +8,7 @@ import { mPostProps } from "./TypesModel";
 interface MethodReturnType {
   modelCode: string;
   interfaceCode?: string;
-  importStatement: string;
+  importStatement?: string;
 }
 
 class Types {
@@ -16,16 +16,17 @@ class Types {
 
   getMethod(props: mPostProps, fileName: string) {
     const { url, requestOrQuery, apiName } = props;
-    let importStatement = `import {${apiName}Props} from './${fileName}Model';`;
-    let interfaces = literalForInterface({ apiName, requestOrQuery });
-    let code = literalGet({ apiName, url });
+    const isHavingParams = requestOrQuery?.length > 0;
+    let code = literalGet({ apiName, url, isHavingParams });
     const completeLiteral: MethodReturnType = {
       modelCode: code,
-      importStatement,
     };
 
     if (requestOrQuery?.length) {
+      let importStatement = `import {${apiName}Props} from './${fileName}Model';`;
+      let interfaces = literalForInterface({ apiName, requestOrQuery });
       completeLiteral.interfaceCode = interfaces;
+      completeLiteral.importStatement = importStatement;
     }
 
     return completeLiteral;
@@ -40,6 +41,7 @@ class Types {
       apiName,
       requestOrQuery: mergeQuery,
     });
+
     let code = literalPost({ apiName, url });
 
     return {

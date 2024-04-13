@@ -1,6 +1,7 @@
 interface literalPostProps {
   apiName: string;
   url: string;
+  isHavingParams?: boolean;
 }
 interface literalInterfaceProps {
   apiName: string;
@@ -39,9 +40,16 @@ export const literalForInterface = ({
   return interfaceLiterals;
 };
 
-export const literalGet = ({ apiName, url }: literalPostProps) => {
+export const literalGet = ({
+  apiName,
+  url,
+  isHavingParams,
+}: literalPostProps) => {
+  const createMethodWithOrWithoutArgs = isHavingParams
+    ? `async (props:${apiName}Props)`
+    : `async () `;
   return `\n\n
-    export const  ${apiName} = async (props:${apiName}Props) =>{
+    export const  ${apiName} = ${createMethodWithOrWithoutArgs} =>{
            const fetchData = await fetch(\`${createTemplateLiteralForUrl(url)}\`)
           const data = await fetchData.json()
           return data;
