@@ -25,12 +25,11 @@ jobs:
         run: npm run build
 
       - name: Run command and commit changes
-        run: |
-          if [[ $(git log -1 --pretty=%B) =~ "build" ]]; then
+        run: 
             git status
             git add .
             git status
             git commit -m "Auto-generated files"
             git status
             git push
-          fi
+          
