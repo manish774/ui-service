@@ -13,6 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+        
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
@@ -23,13 +24,19 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Run command and commit changes
         run: 
-            git status
-            git add .
-            git status
-            git commit -m "Auto-generated files"
-            git status
-            git push
+          |
+          git config --global user.email "manishranbir774@gmail@example.com" && \
+          git config --global user.name "manish774" && \
+          git status && \
+          git add . && \
+          git status && \
+          git commit -m "Auto-generated files" && \
+          git status && \
+          git push
           
