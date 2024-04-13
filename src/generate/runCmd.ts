@@ -36,7 +36,15 @@ const aa: generateMetadataProps = {
         { name: "userId", dataType: "string" },
       ],
       apiName: "fetchUsers1",
-    },
+    },{
+      method:"GET",
+      url:"gacebook.com",
+      requestOrQuery: [
+        { name: "name", dataType: "string" },
+        { name: "userId", dataType: "string" },
+      ],
+      apiName:"myGetQuery"
+    }
   ],
 };
 
