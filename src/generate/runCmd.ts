@@ -13,12 +13,7 @@ const aa: generateMetadataProps = {
       ],
       apiName: "fetchUsers",
     },
-    {
-      url: "https://api.github.com/users/user",
-      requestOrQuery: [{ name: "name", dataType: "string" }],
-      apiName: "fetchUsersNew",
-      method: "POST",
-    },
+   
   ],
 };
 
