@@ -13,7 +13,6 @@ const aa: generateMetadataProps = {
       ],
       apiName: "fetchUsers",
     },
-    
   ],
 };
 
