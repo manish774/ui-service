@@ -16,3 +16,8 @@ export interface fetchUsers1Props {
   name: string;
   userId: string;
 }
+
+export interface myGetQueryProps {
+  name: string;
+  userId: string;
+}
