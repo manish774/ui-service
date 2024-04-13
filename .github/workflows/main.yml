@@ -27,7 +27,6 @@ jobs:
       - name: Run command and commit changes
         run: |
           if [[ $(git log -1 --pretty=%B) =~ "build" ]]; then
-            ts-node ./src/generate/runCmd.ts
             git status
             git add .
             git status
