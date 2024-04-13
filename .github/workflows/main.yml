@@ -2,7 +2,7 @@ name: To generate services
 
 on:
   schedule:
-    - cron: "*/2 * * * *" # This will run the job every day at 6 am UTC
+    - cron: '6 * * * *' # This will run the job every day at 6 am UTC
 
 jobs:
   run_command:
