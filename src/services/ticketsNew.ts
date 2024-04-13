@@ -1,5 +1,6 @@
 import { fetchUsersProps } from "./ticketsNewModel";
 import { fetchUsersNewProps } from "./ticketsNewModel";
+import { fetchUsers2Props } from "./ticketsNewModel";
 import { fetchUsers1Props } from "./ticketsNewModel";
 undefined;
 
@@ -20,6 +21,18 @@ export const fetchUsersNew = async (props: fetchUsersNewProps) => {
     method: "POST",
     body: JSON.stringify(props),
   });
+  const data = await fetchData.json();
+  return data;
+};
+
+export const fetchUsers2 = async (props: fetchUsers2Props) => {
+  const fetchData = await fetch(
+    `https://api.github.com/users/${props?.name}/$${props?.userId}`,
+    {
+      method: "POST",
+      body: JSON.stringify(props),
+    },
+  );
   const data = await fetchData.json();
   return data;
 };
