@@ -1,28 +1,36 @@
-name: Code Quality checks
+name: Run Command on Commit
+
 on:
-  pull_request:
-    branches: [main]
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  push:
+    branches:
+      - main # Change this to your main branch name
+
 jobs:
-  prettier:
-    name: Prettier
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        node-version: [18]
+  run_command:
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
-          version: 8
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          node-version: "14"
+
       - name: Install dependencies
-        run: pnpm install -D
-      - name: Check formatting with Prettier
-        run: pnpm prettier:check:ci
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run command and commit changes
+        run: |
+          if [[ $(git log -1 --pretty=%B) =~ "build" ]]; then
+            git status
+            git add .
+            git status
+            git commit -m "Auto-generated files"
+            git status
+            git push
+          fi
