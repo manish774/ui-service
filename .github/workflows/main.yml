@@ -31,7 +31,7 @@ jobs:
       - name: Run command and commit changes
         run: 
           |
-          git config --global user.email "manishranbir774@gmail@.com" && \
+          git config --global user.email "manishranbir774@gmail.com" && \
           git config --global user.name "manish774" && \
           git status && \
           git add . && \
