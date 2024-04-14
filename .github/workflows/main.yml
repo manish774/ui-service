@@ -2,7 +2,7 @@ name: To generate services
 
 on:
   schedule:
-    - cron: '6 * * * *' # This will run the job every day at 6 am UTC
+    - cron: '0 12 * * *' # This will run the job every day at 6 am UTC
   workflow_dispatch:
 
 jobs:
