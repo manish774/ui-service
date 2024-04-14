@@ -30,9 +30,13 @@ jobs:
         run: |
           git config --global user.email "manishranbir774@gmail.com" && \
           git config --global user.name "manish774" && \
-          git status && \
-          git add . && \
-          git status && \
-          git commit -m "Changes pushed by automated service: Auto-generated files" && \
-          git status && \
-          git push
+          if ! git diff-index --quiet HEAD --; then \
+            git add . && \
+            git commit -m "Changes pushed by automated service: Auto-generated files" && \
+            git push; \
+          else \
+            echo "No changes to commit."; \
+          fi
+
+
+          
