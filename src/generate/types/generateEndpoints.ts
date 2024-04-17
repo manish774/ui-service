@@ -3,39 +3,39 @@ import Type from "./TypesClass";
 import { generateMetadataProps } from "./TypesModel";
 
 export const generateEndpoints = (props: generateMetadataProps) => {
-  let completeCodeString: string = "";
-  let importString: string = "";
-  let interfaceString: string = "";
-  let fileName: string = props?.serviceName;
+  if (!props || !props.model || props.model.length === 0) {
+    return; // No props or empty model, nothing to generate
+  }
 
-  props?.model?.forEach((metadata) => {
-    if (metadata.method === "POST") {
-      const { modelCode, interfaceCode, importStatement } = Type.postMethod(
-        metadata,
-        props?.serviceName,
-      );
-      completeCodeString += modelCode;
-      interfaceString += interfaceCode;
-      importString += importStatement;
-    }
-    if (metadata.method === "GET") {
-      const { modelCode, interfaceCode, importStatement } = Type.getMethod(
-        metadata,
-        props?.serviceName,
-      );
-      completeCodeString += modelCode;
-      interfaceString += interfaceCode;
-      importString += importStatement;
-    }
+  const serviceName = props.serviceName || "UnnamedService";
+  let completeCodeString = "";
+  let interfaceString = "";
+  const importArr: string[] = [];
+  props.model.forEach((metadata) => {
+    let { modelCode, interfaceCode } =
+      {
+        POST: Type.postMethod,
+        GET: Type.getMethod,
+      }[metadata.method]?.(metadata, serviceName) || {};
 
-    generate({
-      fileName: `src/services/${props?.serviceName}.ts`,
-      code: importString + completeCodeString,
-    });
-    generate({
-      fileName: `src/services/${props?.serviceName}Model.ts`,
-      code: interfaceString,
-    });
+    completeCodeString += modelCode || "";
+    interfaceString += interfaceCode || "";
+    metadata?.requestOrQuery?.length && importArr.push(metadata?.apiName);
   });
+
+  const importString = `import {${importArr.join("Props,")}Props} from "./${serviceName}Model"`;
+
+  // Generate scripts
+  generate({
+    fileName: `src/services/${serviceName}.ts`,
+    code: importString + completeCodeString,
+  });
+
+  // Generate models
+  generate({
+    fileName: `src/services/${serviceName}Model.ts`,
+    code: interfaceString,
+  });
+
   runFormatter();
 };
