@@ -14,11 +14,11 @@ interface JsonDataProps {
 }
 export const jsonData: JsonDataProps[] = [
   {
-    serviceName: "Login",
+    serviceName: "User",
     model: [
       {
         method: "POST",
-        url: "https://localhost:3000/signup",
+        url: "https://localhost:4000/signup",
         requestOrQuery: [
           { name: "firstName", dataType: "string" },
           { name: "lastName", dataType: "string" },
@@ -40,6 +40,15 @@ export const jsonData: JsonDataProps[] = [
           },
         ],
         apiName: "signup",
+      },
+      {
+        method: "POST",
+        url: "https://localhost:4000/login",
+        requestOrQuery: [
+          { name: "email", dataType: "string" },
+          { name: "password", dataType: "string" },
+        ],
+        apiName: "login",
       },
     ],
   },

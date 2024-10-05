@@ -1,6 +1,6 @@
 {
   "name": "ui-service-spilt",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "\"Ui service\"",
   "main": "index.js",
   "scripts": {
