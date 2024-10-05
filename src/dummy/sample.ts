@@ -1,95 +1,45 @@
-export const jsonData = [
+interface query {
+  name: string;
+  dataType: string;
+}
+interface model {
+  method: string;
+  url: string;
+  requestOrQuery: query[];
+  apiName: string;
+}
+interface JsonDataProps {
+  serviceName: string;
+  model: model[];
+}
+export const jsonData: JsonDataProps[] = [
   {
-    serviceName: "ticketsNew",
+    serviceName: "Login",
     model: [
       {
         method: "POST",
-        url: "https://api.github.com/users/{name}/${userId}",
+        url: "https://localhost:3000/signup",
         requestOrQuery: [
-          { name: "name", dataType: "string" },
-          { name: "userId", dataType: "string" },
+          { name: "firstName", dataType: "string" },
+          { name: "lastName", dataType: "string" },
+          {
+            name: "emailId",
+            dataType: "string",
+          },
+          {
+            name: "string",
+            dataType: "string",
+          },
+          {
+            name: "gender",
+            dataType: "string",
+          },
+          {
+            name: "skills",
+            dataType: "any",
+          },
         ],
-        apiName: "fetchUsers",
-      },
-      {
-        url: "https://api.github.com/users/user",
-        requestOrQuery: [{ name: "name", dataType: "string" }],
-        apiName: "fetchUsersNew",
-        method: "POST",
-      },
-      {
-        method: "POST",
-        url: "https://api.github.com/users/{name}/${userId}",
-        requestOrQuery: [
-          { name: "name", dataType: "string" },
-          { name: "userId", dataType: "string" },
-        ],
-        apiName: "fetchUsers2",
-      },
-      {
-        method: "POST",
-        url: "https://api.github.com/users/{name}/${userId}",
-        requestOrQuery: [
-          { name: "name", dataType: "string" },
-          { name: "userId", dataType: "string" },
-        ],
-        apiName: "fetchUsers1",
-      },
-      {
-        method: "GET",
-        url: "gacebook.com",
-        requestOrQuery: [],
-        apiName: "myGetQuery",
-      },
-    ],
-  },
-  {
-    serviceName: "NewTest",
-    model: [
-      {
-        method: "POST",
-        url: "https://api.github.com/users/{name}/${userId}",
-        requestOrQuery: [
-          { name: "name", dataType: "string" },
-          { name: "userId", dataType: "string" },
-        ],
-        apiName: "fetchUsers",
-      },
-      {
-        url: "https://api.github.com/users/user",
-        requestOrQuery: [{ name: "name", dataType: "string" }],
-        apiName: "fetchUsersNew",
-        method: "POST",
-      },
-      {
-        method: "POST",
-        url: "https://api.github.com/users/{name}/${userId}",
-        requestOrQuery: [
-          { name: "name", dataType: "string" },
-          { name: "userId", dataType: "string" },
-        ],
-        apiName: "fetchUsers2",
-      },
-      {
-        method: "POST",
-        url: "https://api.github.com/users/{name}/${userId}",
-        requestOrQuery: [
-          { name: "name", dataType: "string" },
-          { name: "userId", dataType: "string" },
-        ],
-        apiName: "fetchUsers1",
-      },
-      {
-        method: "GET",
-        url: "gacebook.com",
-        requestOrQuery: [],
-        apiName: "myGetQuery",
-      },
-      {
-        method: "GET",
-        url: "facebook.com",
-        requestOrQuery: [],
-        apiName: "myGetQuery1",
+        apiName: "signup",
       },
     ],
   },
